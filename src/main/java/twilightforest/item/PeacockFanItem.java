@@ -15,7 +15,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractCandleBlock;
 import net.minecraft.world.level.block.FlowerBlock;
@@ -95,12 +94,6 @@ public class PeacockFanItem extends Item {
 		player.startUsingItem(hand);
 
 		return new InteractionResultHolder<>(InteractionResult.PASS, stack);
-	}
-
-	@Nonnull
-	@Override
-	public UseAnim getUseAnimation(ItemStack stack) {
-		return UseAnim.BLOCK;
 	}
 
 	@Override
