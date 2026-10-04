@@ -41,6 +41,7 @@ shadowJar {
 	archiveClassifier.set('universal')
 	configurations = [project.configurations.shade]
 	relocate 'tamaized.beanification', "${project.mod_id}.beanification"
+	exclude '**/.cache/**'
 }
 
 jar {
@@ -165,10 +166,6 @@ repositories {
 		url 'https://maven.blamejared.com/'
 	}
 	maven {
-		name = "OctoStudios" //Curios
-		url = uri("https://maven.octo-studios.com/releases")
-	}
-	maven {
 		name 'Shedaniel\'s Maven' //REI
 		url "https://maven.shedaniel.me"
 	}
@@ -212,12 +209,10 @@ dependencies {
 	compileOnly "me.shedaniel:RoughlyEnoughItems-neoforge:${project.rei_version}"
 	compileOnly "dev.emi:emi-neoforge:${project.emi_version}+${project.minecraft_version}"
 
-	// theillusivec4
-	implementation "top.theillusivec4.curios:curios-neoforge:${project.curios_version}+${project.base_minecraft_version}"
-
 	//curse maven
 	implementation "curse.maven:jade-324717:5529595"
 	implementation "curse.maven:cosmetic-armor-reworked-237307:5427303"
+	implementation  "curse.maven:curios-309927:6529130"
 	runtimeOnly "curse.maven:worldedit-225608:5830452"
 	runtimeOnly "curse.maven:jeed-532286:6550600"
 //	runtimeOnly "curse.maven:museum-curator-859070:4629894"
