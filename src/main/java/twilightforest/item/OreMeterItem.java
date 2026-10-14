@@ -146,7 +146,7 @@ public class OreMeterItem extends Item {
 		Block block = stack.get(TFDataComponents.ORE_FILTER);
 
 		if (block != null)
-			tooltip.add(Component.translatable("misc.twilightforest.ore_meter_targeted_block", block.getDescriptionId()).withStyle(ChatFormatting.GRAY));
+			tooltip.add(Component.translatable("misc.twilightforest.ore_meter_targeted_block", Component.translatable(block.getDescriptionId())).withStyle(ChatFormatting.GRAY));
 
 		super.appendHoverText(stack, context, tooltip, flag);
 	}
