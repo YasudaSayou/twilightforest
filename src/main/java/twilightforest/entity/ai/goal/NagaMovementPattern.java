@@ -7,8 +7,10 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.network.PacketDistributor;
 import twilightforest.entity.boss.Naga;
 import twilightforest.init.TFSounds;
+import twilightforest.network.ParticlePacket;
 import twilightforest.util.entities.EntityUtil;
 
 import java.util.EnumSet;
@@ -196,17 +198,19 @@ public class NagaMovementPattern extends Goal {
 				this.naga.level().destroyBlock(pos, true);
 
 				// sparkle!!
+				ParticlePacket packet = new ParticlePacket();
 				for (int k = 0; k < 20; k++) {
 					double d = this.naga.getRandom().nextGaussian() * 0.02D;
 					double d1 = this.naga.getRandom().nextGaussian() * 0.02D;
 					double d2 = this.naga.getRandom().nextGaussian() * 0.02D;
 
-					this.naga.level().addParticle(ParticleTypes.CRIT,
+					packet.queueParticle(ParticleTypes.CRIT, false,
 						(this.naga.getX() + this.naga.getRandom().nextFloat() * this.naga.getBbWidth() * 2.0F) - this.naga.getBbWidth(),
 						this.naga.getY() + this.naga.getRandom().nextFloat() * this.naga.getBbHeight(),
 						(this.naga.getZ() + this.naga.getRandom().nextFloat() * this.naga.getBbWidth() * 2.0F) - this.naga.getBbWidth(),
 						d, d1, d2);
 				}
+				PacketDistributor.sendToPlayersTrackingEntity(this.naga, packet);
 			}
 		}
 	}

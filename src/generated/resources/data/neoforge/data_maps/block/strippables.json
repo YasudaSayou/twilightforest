@@ -1,0 +1,52 @@
+{
+  "values": {
+    "twilightforest:twilight_oak_log": {
+      "stripped_block": "twilightforest:stripped_twilight_oak_log"
+    },
+    "twilightforest:canopy_log": {
+      "stripped_block": "twilightforest:stripped_canopy_log"
+    },
+    "twilightforest:mangrove_log": {
+      "stripped_block": "twilightforest:stripped_mangrove_log"
+    },
+    "twilightforest:dark_log": {
+      "stripped_block": "twilightforest:stripped_dark_log"
+    },
+    "twilightforest:time_log": {
+      "stripped_block": "twilightforest:stripped_time_log"
+    },
+    "twilightforest:transformation_log": {
+      "stripped_block": "twilightforest:stripped_transformation_log"
+    },
+    "twilightforest:mining_log": {
+      "stripped_block": "twilightforest:stripped_mining_log"
+    },
+    "twilightforest:sorting_log": {
+      "stripped_block": "twilightforest:stripped_sorting_log"
+    },
+    "twilightforest:twilight_oak_wood": {
+      "stripped_block": "twilightforest:stripped_twilight_oak_wood"
+    },
+    "twilightforest:canopy_wood": {
+      "stripped_block": "twilightforest:stripped_canopy_wood"
+    },
+    "twilightforest:mangrove_wood": {
+      "stripped_block": "twilightforest:stripped_mangrove_wood"
+    },
+    "twilightforest:dark_wood": {
+      "stripped_block": "twilightforest:stripped_dark_wood"
+    },
+    "twilightforest:time_wood": {
+      "stripped_block": "twilightforest:stripped_time_wood"
+    },
+    "twilightforest:transformation_wood": {
+      "stripped_block": "twilightforest:stripped_transformation_wood"
+    },
+    "twilightforest:mining_wood": {
+      "stripped_block": "twilightforest:stripped_mining_wood"
+    },
+    "twilightforest:sorting_wood": {
+      "stripped_block": "twilightforest:stripped_sorting_wood"
+    }
+  }
+}

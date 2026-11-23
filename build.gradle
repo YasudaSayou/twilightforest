@@ -43,10 +43,6 @@ shadowJar {
 	relocate 'tamaized.beanification', "${project.mod_id}.beanification"
 }
 
-jar {
-	archiveClassifier = "slim"
-}
-
 def secrets = new Properties()
 def secretsFile = file('secrets.properties')
 if (secretsFile.exists()) {
@@ -65,11 +61,6 @@ if (secretsFile.exists()) {
 }
 
 idea {
-	project.settings.compiler.javac {
-		// Disable “Report use of deprecated features” https://github.com/JetBrains/gradle-idea-ext-plugin/wiki#javac-settings-of-idea-compiler
-		generateDeprecationWarnings = false
-	}
-
 	module {
 		downloadJavadoc = true
 		downloadSources = true
@@ -156,7 +147,10 @@ jar {
 	exclude 'data/twilightforest/function/**'
 }
 
-sourceSets.main.resources { srcDir 'src/generated/resources' }
+sourceSets.main.resources {
+	srcDir 'src/generated/resources'
+	exclude '.cache'
+}
 
 repositories {
 	mavenLocal()

@@ -10,10 +10,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.material.MapColor;
 import net.neoforged.neoforge.common.data.DataMapProvider;
-import net.neoforged.neoforge.registries.datamaps.builtin.Compostable;
-import net.neoforged.neoforge.registries.datamaps.builtin.FurnaceFuel;
-import net.neoforged.neoforge.registries.datamaps.builtin.NeoForgeDataMaps;
-import net.neoforged.neoforge.registries.datamaps.builtin.ParrotImitation;
+import net.neoforged.neoforge.registries.datamaps.builtin.*;
 import twilightforest.data.tags.ItemTagGenerator;
 import twilightforest.init.*;
 import twilightforest.util.datamaps.CrumbledBlock;
@@ -138,6 +135,24 @@ public class DataMapGenerator extends DataMapProvider {
 		parrot.add(TFEntities.WINTER_WOLF, new ParrotImitation(TFSounds.HOSTILE_WOLF_PARROT.get()), false);
 		parrot.add(TFEntities.WRAITH, new ParrotImitation(TFSounds.WRAITH_PARROT.get()), false);
 		parrot.add(TFEntities.YETI, new ParrotImitation(TFSounds.ALPHA_YETI_PARROT.get()), false);
+
+		var strippables = this.builder(NeoForgeDataMaps.STRIPPABLES);
+		strippables.add(TFBlocks.TWILIGHT_OAK_LOG, new Strippable(TFBlocks.STRIPPED_TWILIGHT_OAK_LOG.get()), false);
+		strippables.add(TFBlocks.CANOPY_LOG, new Strippable(TFBlocks.STRIPPED_CANOPY_LOG.get()), false);
+		strippables.add(TFBlocks.MANGROVE_LOG, new Strippable(TFBlocks.STRIPPED_MANGROVE_LOG.get()), false);
+		strippables.add(TFBlocks.DARK_LOG, new Strippable(TFBlocks.STRIPPED_DARK_LOG.get()), false);
+		strippables.add(TFBlocks.TIME_LOG, new Strippable(TFBlocks.STRIPPED_TIME_LOG.get()), false);
+		strippables.add(TFBlocks.TRANSFORMATION_LOG, new Strippable(TFBlocks.STRIPPED_TRANSFORMATION_LOG.get()), false);
+		strippables.add(TFBlocks.MINING_LOG, new Strippable(TFBlocks.STRIPPED_MINING_LOG.get()), false);
+		strippables.add(TFBlocks.SORTING_LOG, new Strippable(TFBlocks.STRIPPED_SORTING_LOG.get()), false);
+		strippables.add(TFBlocks.TWILIGHT_OAK_WOOD, new Strippable(TFBlocks.STRIPPED_TWILIGHT_OAK_WOOD.get()), false);
+		strippables.add(TFBlocks.CANOPY_WOOD, new Strippable(TFBlocks.STRIPPED_CANOPY_WOOD.get()), false);
+		strippables.add(TFBlocks.MANGROVE_WOOD, new Strippable(TFBlocks.STRIPPED_MANGROVE_WOOD.get()), false);
+		strippables.add(TFBlocks.DARK_WOOD, new Strippable(TFBlocks.STRIPPED_DARK_WOOD.get()), false);
+		strippables.add(TFBlocks.TIME_WOOD, new Strippable(TFBlocks.STRIPPED_TIME_WOOD.get()), false);
+		strippables.add(TFBlocks.TRANSFORMATION_WOOD, new Strippable(TFBlocks.STRIPPED_TRANSFORMATION_WOOD.get()), false);
+		strippables.add(TFBlocks.MINING_WOOD, new Strippable(TFBlocks.STRIPPED_MINING_WOOD.get()), false);
+		strippables.add(TFBlocks.SORTING_WOOD, new Strippable(TFBlocks.STRIPPED_SORTING_WOOD.get()), false);
 
 		var transformation = this.builder(TFDataMaps.TRANSFORMATION_POWDER);
 		this.add2WayTransform(transformation, TFEntities.MINOTAUR, EntityType.ZOMBIFIED_PIGLIN);

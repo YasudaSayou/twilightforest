@@ -21,7 +21,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -44,7 +43,7 @@ public class UpperGoblinKnight extends Monster {
 	private static final EntityDataAccessor<Boolean> SHIELD_DISABLED = SynchedEntityData.defineId(UpperGoblinKnight.class, EntityDataSerializers.BOOLEAN);
 
 	private static final AttributeModifier ARMOR_MODIFIER = new AttributeModifier(TwilightForestMod.prefix("armor_boost"), 20, AttributeModifier.Operation.ADD_VALUE);
-	private static final AttributeModifier DAMAGE_MODIFIER = new AttributeModifier(TwilightForestMod.prefix("spear_attack_boost"), 12, AttributeModifier.Operation.ADD_MULTIPLIED_BASE);
+	private static final AttributeModifier DAMAGE_MODIFIER = new AttributeModifier(TwilightForestMod.prefix("spear_attack_boost"), 12, AttributeModifier.Operation.ADD_VALUE);
 	public static final int HEAVY_SPEAR_TIMER_START = 60;
 
 	private int shieldHits = 0;
@@ -184,20 +183,12 @@ public class UpperGoblinKnight extends Monster {
 			if (!this.isPassenger() && this.hasShield()) {
 				this.breakShield();
 			}
-
-			if (this.heavySpearTimer > 0) {
-				if (!Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).hasModifier(DAMAGE_MODIFIER.id())) {
-					Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).addTransientModifier(DAMAGE_MODIFIER);
-				}
-			} else {
-				Objects.requireNonNull(this.getAttribute(Attributes.ATTACK_DAMAGE)).removeModifier(DAMAGE_MODIFIER.id());
-			}
 		}
 	}
 
 	public void landHeavySpearAttack() {
 		// find vector in front of us
-		Vec3 vector = this.getLookAngle();
+		Vec3 vector = calculateViewVector(0.0F, getYRot());
 
 		double dist = 1.25;
 		double px = this.getX() + vector.x() * dist;
@@ -218,13 +209,15 @@ public class UpperGoblinKnight extends Monster {
 
 		// damage things in front that aren't us or our "mount"
 		double radius = 1.5D;
-
 		AABB spearBB = new AABB(px - radius, py - radius, pz - radius, px + radius, py + radius, pz + radius);
-
 		List<Entity> inBox = this.level().getEntities(this, spearBB, e -> e != this.getVehicle());
 
-		for (Entity entity : inBox) {
-			super.doHurtTarget(entity);
+		if (this.level() instanceof ServerLevel server) {
+			Objects.requireNonNull(getAttribute(Attributes.ATTACK_DAMAGE)).addOrUpdateTransientModifier(DAMAGE_MODIFIER);
+			for (Entity entity : inBox) {
+				super.doHurtTarget(entity);
+			}
+			Objects.requireNonNull(getAttribute(Attributes.ATTACK_DAMAGE)).removeModifier(DAMAGE_MODIFIER.id());
 		}
 
 		if (!inBox.isEmpty()) {
@@ -257,7 +250,7 @@ public class UpperGoblinKnight extends Monster {
 
 		if (this.getRandom().nextInt(2) == 0) {
 			this.heavySpearTimer = HEAVY_SPEAR_TIMER_START;
-			this.level().broadcastEntityEvent(this, (byte) 4);
+			this.level().broadcastEntityEvent(this, EntityEvent.START_ATTACKING);
 			return false;
 		}
 
@@ -300,12 +293,12 @@ public class UpperGoblinKnight extends Monster {
 	}
 
 	private void breakArmor() {
-		this.level().broadcastEntityEvent(this, (byte) 5);
+		this.level().broadcastEntityEvent(this, EntityEvent.STOP_ATTACKING);
 		this.setHasArmor(false);
 	}
 
 	private void breakShield() {
-		this.level().broadcastEntityEvent(this, (byte) 5);
+		this.level().broadcastEntityEvent(this, EntityEvent.STOP_ATTACKING);
 		this.setHasShield(false);
 	}
 
@@ -316,7 +309,7 @@ public class UpperGoblinKnight extends Monster {
 	public boolean takeHitOnShield(DamageSource source, float amount) {
 		if (this.isShieldDisabled()) return false;
 
-		if (source.getEntity() instanceof LivingEntity living && living.getMainHandItem().getItem() instanceof AxeItem && !this.level().isClientSide()) {
+		if (source.getEntity() instanceof LivingEntity living && living.canDisableShield() && !this.level().isClientSide()) {
 			this.getEntityData().set(SHIELD_DISABLED, true);
 			this.playSound(SoundEvents.SHIELD_BREAK, 1.0F, 0.8F + this.level().getRandom().nextFloat() * 0.4F);
 			return true;

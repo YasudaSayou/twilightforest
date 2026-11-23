@@ -81,11 +81,5 @@ public class DataGenerators {
 		generator.addProvider(event.includeClient(), new LangGenerator(output, lookupProvider));
 
 		generator.addProvider(event.includeServer(), new QuestGenerator(output));
-
-		//pack.mcmeta
-		generator.addProvider(true, new PackMetadataGenerator(output).add(PackMetadataSection.TYPE, new PackMetadataSection(
-			Component.literal("Resources for Twilight Forest"),
-			DetectedVersion.BUILT_IN.getPackVersion(PackType.SERVER_DATA),
-			Optional.of(new InclusiveRange<>(0, Integer.MAX_VALUE)))));
 	}
 }

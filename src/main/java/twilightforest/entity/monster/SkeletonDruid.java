@@ -29,8 +29,6 @@ import twilightforest.entity.projectile.NatureBolt;
 import twilightforest.init.TFEntities;
 import twilightforest.init.TFSounds;
 
-import java.util.UUID;
-
 public class SkeletonDruid extends AbstractSkeleton {
 	private RangedAttackGoal rangedAttackGoal;
 

@@ -28,7 +28,7 @@ public class IceSwordItem extends SwordItem {
 					target.getZ() + (target.getRandom().nextGaussian() * target.getBbWidth() * 0.5),
 					0, 0, 0);
 			}
-			PacketDistributor.sendToPlayersTrackingEntity(target, particlePacket);
+			PacketDistributor.sendToPlayersTrackingEntityAndSelf(target, particlePacket);
 
 			return true;
 		}
